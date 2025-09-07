@@ -1,2 +1,2 @@
 # cicd
-Setup cicd fro project Nodejs + Vuejs
+Setup cicd for project Nodejs + Vuejs
