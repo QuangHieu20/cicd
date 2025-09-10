@@ -23,7 +23,7 @@
       </div>
 
       <div class="card">
-        <h2>API Test 5</h2>
+        <h2>API Test 6</h2>
         <input v-model="message" placeholder="Enter message" />
         <button @click="sendMessage" :disabled="loading">Send</button>
         <div v-if="response" class="response">
