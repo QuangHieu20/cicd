@@ -43,7 +43,7 @@ export default {
       backendStatus: '',
       message: 'Hello from frontend!',
       response: '',
-      apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:3000'
+      apiUrl: this.getApiUrl()
     }
   },
   methods: {
@@ -57,6 +57,20 @@ export default {
         this.backendStatus = `❌ Backend error: ${error.message}`;
       }
       this.loading = false;
+    },
+    
+    getApiUrl() {
+      // Auto-detect environment
+      const envUrl = import.meta.env.VITE_API_URL;
+      if (envUrl) return envUrl;
+      
+      // Fallback: detect by hostname
+      const hostname = window.location.hostname;
+      if (hostname === 'localhost' || hostname === '127.0.0.1') {
+        return 'http://localhost:3000';
+      } else {
+        return `http://${hostname}:3000`;
+      }
     },
     
     async sendMessage() {
