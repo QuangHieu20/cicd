@@ -25,12 +25,12 @@ services:
       context: ./frontend
       dockerfile: ../.docker/frontend/Dockerfile
       target: production
+      args:
+        - VITE_API_URL=https://todonest.id.vn/api
     container_name: cicd-frontend
     ports:
       - "3001:80"
     restart: always
-    environment:
-      - VITE_API_URL=https://todonest.id.vn/api
     depends_on:
       - backend
     networks:
