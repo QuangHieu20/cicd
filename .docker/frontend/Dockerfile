@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build
 
 # Production stage
-FROM nginx:alpine
+FROM nginx:alpine AS production
 LABEL authors="nguyenquanghieu"
 
 # Copy built files to nginx
