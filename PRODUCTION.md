@@ -11,23 +11,28 @@
 └── docker-compose.prod.yml # Production (với SSL)
 ```
 
-## 🔧 Setup SSL trên VPS trước khi deploy:
+## 🔧 Setup VPS Nginx proxy trước khi deploy:
 
-### 1. Cài đặt Certbot trên VPS:
+### 1. Chạy script setup:
 ```bash
-sudo apt update
-sudo apt install certbot -y
+chmod +x setup-vps-nginx.sh
+./setup-vps-nginx.sh
 ```
 
-### 2. Tạo SSL certificate:
+### 2. Hoặc setup thủ công:
 ```bash
-sudo certbot certonly --standalone -d todonest.id.vn -d www.todonest.id.vn
-```
+# Cài Nginx và Certbot
+sudo apt install nginx certbot python3-certbot-nginx -y
 
-### 3. Kiểm tra certificate:
-```bash
-sudo ls -la /etc/letsencrypt/live/todonest.id.vn/
-# Phải có: fullchain.pem, privkey.pem
+# Tạo config proxy đến Docker
+sudo nano /etc/nginx/sites-available/todonest.id.vn
+
+# Enable site
+sudo ln -sf /etc/nginx/sites-available/todonest.id.vn /etc/nginx/sites-enabled/
+sudo systemctl restart nginx
+
+# Tạo SSL
+sudo certbot --nginx -d todonest.id.vn
 ```
 
 ## 🚀 Deployment:
@@ -52,9 +57,10 @@ docker-compose -f docker-compose.prod.yml up -d
 - **Nginx:** http://localhost:8080
 
 ### Production:
-- **Frontend:** https://todonest.id.vn
+- **Frontend:** https://todonest.id.vn (VPS Nginx → Docker)
 - **Backend API:** https://todonest.id.vn/api
 - **Health Check:** https://todonest.id.vn/health
+- **Docker Nginx:** http://localhost:8080 (internal)
 
 ## 🔒 SSL Features:
 
