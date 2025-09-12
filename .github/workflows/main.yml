@@ -55,8 +55,8 @@ jobs:
         
         # Build and start with production environment
         echo "🚀 Building and starting containers..."
-        API_URL=http://103.126.161.183:3000 NODE_ENV=production docker-compose build --no-cache
-        API_URL=http://103.126.161.183:3000 NODE_ENV=production docker-compose up -d
+        API_URL=https://todonest.id.vn/api NODE_ENV=production docker-compose build --no-cache
+        API_URL=https://todonest.id.vn/api NODE_ENV=production docker-compose up -d
         
         # Health check
         echo "🏥 Performing health check..."
@@ -64,5 +64,5 @@ jobs:
         curl -f http://localhost:3000/health || { echo "Health check failed"; exit 1; }
         
         echo "✅ Deployment completed successfully!"
-        echo "🌐 Frontend: http://103.126.161.183:3001"
-        echo "🌐 Backend: http://103.126.161.183:3000"
+        echo "🌐 Frontend: https://todonest.id.vn"
+        echo "🌐 Backend API: https://todonest.id.vn/api"
